@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Pokemon Infos</title>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <h1>Pokemon Infos</h1>
+    <p>Zu welchem Pokemon möchtest du Informationen erhalten?</p>
+    <form id="search">
+      <input type="number" id="pokedexNumber" required />
+      <button type="submit">Suchen</button>
+    </form>
+
+    <div id="pokemon"></div>
+    <p id="output"></p>
+
+    <script>
+      document
+        .getElementById("search")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const number = document.getElementById("pokedexNumber").value;
+
+          fetch("https://pokeapi.co/api/v2/pokemon/" + number)
+            .then((response) => response.json())
+            .then((data) => {
+              const name = data.name;
+              const typen = data.types.map((t) => t.type.name);
+              const picturefront = data.sprites.front_default;
+              const pictureback = data.sprites.back_default;
+              const attacks = data.moves.map((t) => t.move.name);
+              document.getElementById("pokemon").innerHTML = `
+              <h2>${name}</h2>
+              <img src="${picturefront}"></a>
+              <img src="${pictureback}"></a>
+              <br>
+              <span>Typen: ${typen.join(", ")}</span>
+              <br>
+              <span>Typen: ${attacks.join(", ")}</span>
+              `;
+            });
+        });
+    </script>
+  </body>
+</html>
