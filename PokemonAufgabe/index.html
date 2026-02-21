@@ -38,7 +38,10 @@
               <br>
               <span>Typen: ${typen.join(", ")}</span>
               <br>
-              <span>Typen: ${attacks.join(", ")}</span>
+              <label for="option">Attacken:</label>
+              <select name="option" id="option">
+                ${attacks.map((a) => '<option value="' + a + '">' + a + "</option>").join("")}
+              </select>
               `;
             });
         });
